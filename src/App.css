@@ -1,0 +1,61 @@
+.layout{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+/* Login page */
+.login-container {
+  background-color: #f0f4f8;
+  height: 85vh;
+
+}
+
+.login-box ,.signup-box{
+  width: 100%;
+  min-width: 400px;
+  max-width: 400px;
+}
+
+input {
+  background-color: #1e293b;
+  color: white;
+  border: none;
+  border: 1px solid #38bdf8;
+}
+
+input:focus {
+  outline: none;
+
+}
+
+button {
+  transition: background-color 0.2s ease;
+}
+
+/* Sign up */
+.signup-container {
+  background-color: #f0f4f8;
+  height: 85vh;
+}
+
+.signup-box {
+  width: 100%;
+  max-width: 400px;
+}
+
+input {
+  background-color: #1e293b;
+  color: white;
+  border: none;
+  border: 1px solid #38bdf8;
+
+}
+
+input:focus {
+  outline: none;
+}
+
+button {
+  transition: background-color 0.2s ease;
+}
