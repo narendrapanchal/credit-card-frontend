@@ -1,19 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
-import { UserContext } from '../context/userContext';
-import { Link, useSearchParams } from 'react-router-dom';
-const baseUrl=import.meta.env.VITE_Backend_Url
+import React, { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import { UserContext } from "../context/userContext";
+import { Link, useSearchParams } from "react-router-dom";
+const baseUrl = import.meta.env.VITE_Backend_Url;
 
 const Applications = () => {
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const { login } = useContext(UserContext);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const category = searchParams.get('category') || '';
-  const bank = searchParams.get('bank') || '';
-  const status = searchParams.get('status') || '';
+  const category = searchParams.get("category") || "";
+  const bank = searchParams.get("bank") || "";
+  const status = searchParams.get("status") || "";
 
   useEffect(() => {
     const fetchApplications = async () => {
@@ -23,10 +23,10 @@ const Applications = () => {
             Authorization: `${login.token}`,
           },
         });
-        console.log(response.data)
+        console.log(response.data);
         setApplications(response.data);
       } catch (err) {
-        setError('Failed to fetch applications.');
+        setError("Failed to fetch applications.");
       } finally {
         setLoading(false);
       }
@@ -53,7 +53,7 @@ const Applications = () => {
   return (
     <div className="application-details-container container">
       <h2 className="text-2xl mb-4">Applications</h2>
-      <div className='flex justify-end mt-4'>
+      <div className="flex justify-end mt-4">
         <div className="mb-4">
           <label className="block mb-2">Select Category</label>
           <select
@@ -113,10 +113,15 @@ const Applications = () => {
         <tbody>
           {applications
             .filter((app) => app.status === status || status === "")
-            .filter((app) => app.cardId.category === category || category === "")
+            .filter(
+              (app) => app.cardId.category === category || category === ""
+            )
             .filter((app) => app.cardId.bank === bank || bank === "")
             .map((app) => (
-              <tr key={app._id} className="border-b hover:bg-gray-700 text-center">
+              <tr
+                key={app._id}
+                className="border-b hover:bg-gray-700 text-center"
+              >
                 <td className="py-2 px-4 border">{app.status}</td>
                 <td className="py-2 px-4 border">{app.personalInfo.income}</td>
                 <td className="py-2 px-4 border">{app.personalInfo.phone}</td>
@@ -124,8 +129,12 @@ const Applications = () => {
                 <td className="py-2 px-4 border">{app.personalInfo.pancard}</td>
                 <td className="py-2 px-4 border">
                   {app.status === "pending" ? (
-                    <Link className='underline' to={`/application/${app._id}`}>Approve/Reject</Link>
-                  ) : app.status}
+                    <Link className="underline" to={`/application/${app._id}`}>
+                      Approve/Reject
+                    </Link>
+                  ) : (
+                    app.status
+                  )}
                 </td>
               </tr>
             ))}

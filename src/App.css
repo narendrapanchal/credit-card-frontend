@@ -1,4 +1,4 @@
-.layout{
+.layout {
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -8,10 +8,10 @@
 .login-container {
   background-color: #f0f4f8;
   height: 85vh;
-
 }
 
-.login-box ,.signup-box{
+.login-box,
+.signup-box {
   width: 100%;
   min-width: 400px;
   max-width: 400px;
@@ -26,7 +26,6 @@ input {
 
 input:focus {
   outline: none;
-
 }
 
 button {
@@ -49,7 +48,6 @@ input {
   color: white;
   border: none;
   border: 1px solid #38bdf8;
-
 }
 
 input:focus {
@@ -59,9 +57,9 @@ input:focus {
 button {
   transition: background-color 0.2s ease;
 }
-select > option{
+select > option {
   background-color: #1e293b;
-  background: #1e293b;;
+  background: #1e293b;
 }
 select {
   background-color: #1e293b;

@@ -1,12 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-.container{
-  max-width:64rem;
+.container {
+  max-width: 64rem;
   margin: auto;
 }
-@media (max-width:740px) {
-  .container{
-  padding: 0px 10px;
+@media (max-width: 740px) {
+  .container {
+    padding: 0px 10px;
   }
 }

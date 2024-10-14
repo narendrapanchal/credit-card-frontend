@@ -1,4 +1,3 @@
-import React from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
@@ -16,31 +15,45 @@ import UserContextProvider from "../context/userContext";
 function AllRoutes() {
   return (
     <BrowserRouter>
-    <UserContextProvider>
-
-      <div className="layout">
-        <div>
-          <Header />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/applications" element={<PrivateRoute><Applications /></PrivateRoute>} />
-            <Route path="/card/:id" element={<CardDetail/>} />
-            <Route path="/application/:id" element={<PrivateRoute><EditApplication/></PrivateRoute>} />
-            <Route path="/apply/:id" element={<Apply/>} />
-            <Route path="/login" element={<Login />} />
-            <Route
-              path="/add-card"
-              element={
-                  <PrivateRoute><AddCard /></PrivateRoute>
-              }
-            />
-            <Route path="/signup" element={<SignUp />} />
-          </Routes>
+      <UserContextProvider>
+        <div className="layout">
+          <div>
+            <Header />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route
+                path="/applications"
+                element={
+                  <PrivateRoute>
+                    <Applications />
+                  </PrivateRoute>
+                }
+              />
+              <Route path="/card/:id" element={<CardDetail />} />
+              <Route
+                path="/application/:id"
+                element={
+                  <PrivateRoute>
+                    <EditApplication />
+                  </PrivateRoute>
+                }
+              />
+              <Route path="/apply/:id" element={<Apply />} />
+              <Route path="/login" element={<Login />} />
+              <Route
+                path="/add-card"
+                element={
+                  <PrivateRoute>
+                    <AddCard />
+                  </PrivateRoute>
+                }
+              />
+              <Route path="/signup" element={<SignUp />} />
+            </Routes>
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
-    </UserContextProvider>
-
+      </UserContextProvider>
     </BrowserRouter>
   );
 }

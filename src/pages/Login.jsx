@@ -1,42 +1,42 @@
-import React, { useContext, useState } from 'react';
-import axios from 'axios'; // To make HTTP requests
-import { Link, useNavigate } from 'react-router-dom';
-import { UserContext } from '../context/userContext';
-const baseUrl=import.meta.env.VITE_Backend_Url
+import React, { useContext, useState } from "react";
+import axios from "axios"; // To make HTTP requests
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../context/userContext";
+const baseUrl = import.meta.env.VITE_Backend_Url;
 
 const Login = () => {
   const { handleLogin } = useContext(UserContext);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(''); 
+    setError("");
 
     if (!validateEmail(email)) {
-      setError('Please enter a valid email address.');
+      setError("Please enter a valid email address.");
       return;
     }
 
     if (password.length < 4) {
-      setError('Password must be at least 4 characters long.');
+      setError("Password must be at least 4 characters long.");
       return;
     }
 
     try {
       const response = await axios.post(`${baseUrl}/admin/login`, {
         email,
-        password
+        password,
       });
       const token = response.data.token;
       handleLogin(token);
-      localStorage.setItem('token', token); 
-      alert('Login successful!');
-        navigate('/');
+      localStorage.setItem("token", token);
+      alert("Login successful!");
+      navigate("/");
     } catch (err) {
-      setError('Invalid email or password'); 
+      setError("Invalid email or password");
     }
   };
 
@@ -71,12 +71,19 @@ const Login = () => {
               className="w-full p-2 border border-gray-300 rounded"
             />
           </div>
-          <button type="submit" className="w-full bg-slate-600 hover:bg-slate-900 text-white py-2 rounded">
+          <button
+            type="submit"
+            className="w-full bg-slate-600 hover:bg-slate-900 text-white py-2 rounded"
+          >
             Login
           </button>
         </form>
         <p className="mt-4 text-center">
-          Don't have an account? <Link to="/signup" className="text-blue-400">Sign up here</Link>.
+          Don't have an account?{" "}
+          <Link to="/signup" className="text-blue-400">
+            Sign up here
+          </Link>
+          .
         </p>
       </div>
     </div>

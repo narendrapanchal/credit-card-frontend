@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
-const baseUrl=import.meta.env.VITE_Backend_Url
+import React, { useState } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+const baseUrl = import.meta.env.VITE_Backend_Url;
 const Signup = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const navigate = useNavigate();
   const handleSignup = async (e) => {
     e.preventDefault();
-    setError(''); // Reset error message before new attempt
-    setSuccess('');
+    setError(""); // Reset error message before new attempt
+    setSuccess("");
 
     // Check if passwords match
     if (password !== confirmPassword) {
@@ -21,17 +21,16 @@ const Signup = () => {
     }
 
     try {
-      
       const response = await axios.post(`${baseUrl}/admin/register`, {
         email,
         password,
       });
-      alert('Signup successful! Please login.');
-     setTimeout(()=>{
-      navigate('/login'); 
-     },2000)// Redirect to the login page after successful signup
+      alert("Signup successful! Please login.");
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000); // Redirect to the login page after successful signup
     } catch (err) {
-      setError('Signup failed. Please try again.'); // Handle any errors
+      setError("Signup failed. Please try again."); // Handle any errors
     }
   };
 
@@ -72,12 +71,19 @@ const Signup = () => {
               className="w-full p-2 border border-gray-300 rounded"
             />
           </div>
-          <button type="submit" className="w-full bg-slate-600 hover:bg-slate-900 text-white py-2 rounded">
+          <button
+            type="submit"
+            className="w-full bg-slate-600 hover:bg-slate-900 text-white py-2 rounded"
+          >
             Signup
           </button>
         </form>
         <p className="mt-4 text-center">
-          Already have an account? <Link to="/login" className="text-blue-400">Login here</Link>.
+          Already have an account?{" "}
+          <Link to="/login" className="text-blue-400">
+            Login here
+          </Link>
+          .
         </p>
       </div>
     </div>
