@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/userContext';
 
 const Login = () => {
-  const {handleLogin}=useContext(UserContext);
+  const { handleLogin } = useContext(UserContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -12,23 +12,36 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(''); // Reset error message before new attempt
+    setError(''); 
+
+    if (!validateEmail(email)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+
+    if (password.length < 4) {
+      setError('Password must be at least 4 characters long.');
+      return;
+    }
 
     try {
-      const response = await axios.post('https://credit-card-backend-hy1u.onrender.com/admin/login', {
+      const response = await axios.post('http://localhost:5000/admin/login', {
         email,
         password
       });
-      const token =await response.data.token;
-      handleLogin(token)
-      localStorage.setItem('token', token); // Save token in local storage
-      alert('Login successful! '+token);
-     setTimeout(()=>{
-      navigate('/');
-     },2000) // Redirect to the home page or dashboard
+      const token = response.data.token;
+      handleLogin(token);
+      localStorage.setItem('token', token); 
+      alert('Login successful!');
+        navigate('/');
     } catch (err) {
-      setError('Invalid email or password'); // Display error if login fails
+      setError('Invalid email or password'); 
     }
+  };
+
+  const validateEmail = (email) => {
+    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return re.test(String(email).toLowerCase());
   };
 
   return (
@@ -57,7 +70,7 @@ const Login = () => {
               className="w-full p-2 border border-gray-300 rounded"
             />
           </div>
-          <button type="submit" className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded">
+          <button type="submit" className="w-full bg-slate-600 hover:bg-slate-900 text-white py-2 rounded">
             Login
           </button>
         </form>

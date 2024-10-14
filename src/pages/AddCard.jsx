@@ -1,88 +1,151 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
+import { UserContext } from '../context/userContext';
 
 const AddCardForm = () => {
-  const [name, setName] = useState('');
-  const [src, setSrc] = useState('');
-  const [limit, setLimit] = useState('');
-  const [category, setCategory] = useState('Travel Cards'); // Default category
-  const [bank, setBank] = useState('Bank of America'); // Default bank
-  const [pros, setPros] = useState(['']);
-  const [cons, setCons] = useState(['']);
+  const [formData, setFormData] = useState({
+    name: '',
+    src: '',
+    limit: '',
+    category: 'Travel Cards', // Default category
+    bank: 'Bank of America',   // Default bank
+    pros: [''],
+    cons: ['']
+  });
   const [message, setMessage] = useState('');
-  const [token, setToken] = useState(''); // State to store the token
+  const { login } = useContext(UserContext);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage('');
 
-    if (!token) {
-      setMessage('Authentication token is required');
+    const { name, src, limit, pros, cons } = formData;
+
+    if (!/^[a-zA-Z\s]+$/.test(name)) {
+      setMessage('Card name must contain only characters.');
+      return;
+    }
+
+    if (!isValidUrl(src)) {
+      setMessage('Please enter a valid image URL.');
+      return;
+    }
+
+    const creditLimit = Number(limit);
+    if (isNaN(creditLimit) || creditLimit < 10000) {
+      setMessage('Credit limit must be a number and at least 10,000.');
+      return;
+    }
+
+    if (pros.some(pro => pro.length < 5)) {
+      setMessage('All pros must be at least 5 characters long.');
+      return;
+    }
+
+    if (cons.some(con => con.length < 5)) {
+      setMessage('All cons must be at least 5 characters long.');
       return;
     }
 
     try {
-      const response = await axios.post(
-        'https://credit-card-backend-hy1u.onrender.com/admin/add-card',
-        {
-          name,
-          src,
-          limit,
-          category,
-          bank,
-          pros,
-          cons,
-        },
+      await axios.post(
+        'http://localhost:5000/admin/add-card',
+        formData,
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
+            Authorization: `${login.token}`, // Pass the token in the Authorization header
           },
         }
       );
-      setMessage('Card added successfully!');
+
+      alert('Card added successfully!');
+      setFormData({
+        name: '',
+        src: '',
+        limit: '',
+        category: 'Travel Cards',
+        bank: 'Bank of America',
+        pros: [''],
+        cons: ['']
+      });
     } catch (error) {
       setMessage('Failed to add card. Please try again.');
     }
   };
 
   const handleAddPro = () => {
-    setPros([...pros, '']);
+    setFormData((prevData) => ({
+      ...prevData,
+      pros: [...prevData.pros, '']
+    }));
   };
 
   const handleProChange = (index, value) => {
-    const updatedPros = pros.map((pro, i) => (i === index ? value : pro));
-    setPros(updatedPros);
+    const updatedPros = formData.pros.map((pro, i) => (i === index ? value : pro));
+    setFormData((prevData) => ({
+      ...prevData,
+      pros: updatedPros
+    }));
+  };
+
+  const handleRemovePro = (index) => {
+    const updatedPros = formData.pros.filter((_, i) => i !== index);
+    setFormData((prevData) => ({
+      ...prevData,
+      pros: updatedPros
+    }));
   };
 
   const handleAddCon = () => {
-    setCons([...cons, '']);
+    setFormData((prevData) => ({
+      ...prevData,
+      cons: [...prevData.cons, '']
+    }));
   };
 
   const handleConChange = (index, value) => {
-    const updatedCons = cons.map((con, i) => (i === index ? value : con));
-    setCons(updatedCons);
+    const updatedCons = formData.cons.map((con, i) => (i === index ? value : con));
+    setFormData((prevData) => ({
+      ...prevData,
+      cons: updatedCons
+    }));
+  };
+
+  const handleRemoveCon = (index) => {
+    const updatedCons = formData.cons.filter((_, i) => i !== index);
+    setFormData((prevData) => ({
+      ...prevData,
+      cons: updatedCons
+    }));
+  };
+
+  const isValidUrl = (url) => {
+    const pattern = new RegExp('^(https?:\\/\\/)?' +
+      '((([a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*)\\.[a-z]{2,5})|' +
+      '((\\d{1,3}\\.){3}\\d{1,3}))' +
+      '(\\:\\d+)?(\\/.*)?$', 'i');
+    return !!pattern.test(url);
   };
 
   return (
-    <div className="add-card-form-container">
+    <div className="add-card-form-container mb-4">
       <h2 className="text-xl text-center mb-4">Add a New Credit Card</h2>
       <form onSubmit={handleSubmit} className="w-full max-w-lg mx-auto bg-slate-800 text-white p-8 rounded shadow-md">
-        <div className="mb-4">
-          <label className="block mb-2">Authentication Token</label>
-          <input
-            type="text"
-            value={token}
-            onChange={(e) => setToken(e.target.value)}
-            required
-            className="w-full p-2 border border-gray-300 rounded"
-            placeholder="Enter your authentication token"
-          />
-        </div>
         <div className="mb-4">
           <label className="block mb-2">Card Name</label>
           <input
             type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
             required
             className="w-full p-2 border border-gray-300 rounded"
           />
@@ -91,8 +154,9 @@ const AddCardForm = () => {
           <label className="block mb-2">Card Image URL</label>
           <input
             type="text"
-            value={src}
-            onChange={(e) => setSrc(e.target.value)}
+            name="src"
+            value={formData.src}
+            onChange={handleChange}
             required
             className="w-full p-2 border border-gray-300 rounded"
           />
@@ -101,8 +165,9 @@ const AddCardForm = () => {
           <label className="block mb-2">Credit Limit</label>
           <input
             type="number"
-            value={limit}
-            onChange={(e) => setLimit(e.target.value)}
+            name="limit"
+            value={formData.limit}
+            onChange={handleChange}
             required
             className="w-full p-2 border border-gray-300 rounded"
           />
@@ -110,10 +175,11 @@ const AddCardForm = () => {
         <div className="mb-4">
           <label className="block mb-2">Category</label>
           <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
             required
-            className="w-full p-2 border border-gray-300 rounded"
+            className="bg-slate-800 w-full p-2 border border-gray-300 rounded"
           >
             <option value="Travel Cards">Travel Cards</option>
             <option value="Corporate Cards">Corporate Cards</option>
@@ -124,10 +190,11 @@ const AddCardForm = () => {
         <div className="mb-4">
           <label className="block mb-2">Bank Name</label>
           <select
-            value={bank}
-            onChange={(e) => setBank(e.target.value)}
+            name="bank"
+            value={formData.bank}
+            onChange={handleChange}
             required
-            className="w-full p-2 border border-gray-300 rounded"
+            className="bg-slate-800 w-full p-2 border border-gray-300 rounded"
           >
             <option value="Bank of America">Bank of America</option>
             <option value="Chase">Chase</option>
@@ -137,38 +204,54 @@ const AddCardForm = () => {
         </div>
         <div className="mb-4">
           <label className="block mb-2">Pros</label>
-          {pros.map((pro, index) => (
-            <input
-              key={index}
-              type="text"
-              value={pro}
-              onChange={(e) => handleProChange(index, e.target.value)}
-              className="w-full mb-2 p-2 border border-gray-300 rounded"
-            />
+          {formData.pros.map((pro, index) => (
+            <div key={index} className="flex items-center mb-2">
+              <input
+                type="text"
+                value={pro}
+                onChange={(e) => handleProChange(index, e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+              <button 
+                type="button" 
+                onClick={() => handleRemovePro(index)} 
+                className="bg-red-600 hover:bg-red-800 text-white text-3xl ml-2 py-0 px-2 rounded-full"
+              >
+                &times;
+              </button>
+            </div>
           ))}
-          <button type="button" onClick={handleAddPro} className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded">
+          <button type="button" onClick={handleAddPro} className="bg-slate-600 hover:bg-slate-900 text-white py-1 px-2 rounded">
             Add Pro
           </button>
         </div>
         <div className="mb-4">
           <label className="block mb-2">Cons</label>
-          {cons.map((con, index) => (
-            <input
-              key={index}
-              type="text"
-              value={con}
-              onChange={(e) => handleConChange(index, e.target.value)}
-              className="w-full mb-2 p-2 border border-gray-300 rounded"
-            />
+          {formData.cons.map((con, index) => (
+            <div key={index} className="flex items-center mb-2">
+              <input
+                type="text"
+                value={con}
+                onChange={(e) => handleConChange(index, e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+              <button 
+                type="button" 
+                onClick={() => handleRemoveCon(index)} 
+                className="bg-red-600 hover:bg-red-800 text-white text-3xl ml-2 py-0 px-2 rounded-full"
+              >
+                &times;
+              </button>
+            </div>
           ))}
-          <button type="button" onClick={handleAddCon} className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded">
+          <button type="button" onClick={handleAddCon} className="bg-slate-600 hover:bg-slate-900 text-white py-1 px-2 rounded">
             Add Con
           </button>
         </div>
-        <button type="submit" className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded">
+        <button type="submit" className="w-full bg-slate-600 hover:bg-slate-900 text-white py-2 rounded">
           Submit
         </button>
-        {message && <p className="mt-4 text-center text-lg">{message}</p>}
+        {message && <p className="mt-4 text-center text-lg text-red-600">{message}</p>}
       </form>
     </div>
   );

@@ -59,3 +59,11 @@ input:focus {
 button {
   transition: background-color 0.2s ease;
 }
+select > option{
+  background-color: #1e293b;
+  background: #1e293b;;
+}
+select {
+  background-color: #1e293b;
+  color: white; /* Change text color if needed */
+}

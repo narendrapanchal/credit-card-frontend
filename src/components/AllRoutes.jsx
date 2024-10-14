@@ -6,19 +6,32 @@ import Header from "./Header";
 import Footer from "./Footer";
 import AddCard from "../pages/AddCard";
 import PrivateRoute from "./PrivateRoute";
+import Home from "../pages/Home";
+import CardDetail from "../pages/CardDetails";
+import Apply from "../pages/Apply";
+import Applications from "../pages/Applications";
+import EditApplication from "../pages/EditApplication";
+import UserContextProvider from "../context/userContext";
 
 function AllRoutes() {
   return (
     <BrowserRouter>
+    <UserContextProvider>
+
       <div className="layout">
         <div>
           <Header />
           <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/applications" element={<PrivateRoute><Applications /></PrivateRoute>} />
+            <Route path="/card/:id" element={<CardDetail/>} />
+            <Route path="/application/:id" element={<PrivateRoute><EditApplication/></PrivateRoute>} />
+            <Route path="/apply/:id" element={<Apply/>} />
             <Route path="/login" element={<Login />} />
             <Route
               path="/add-card"
               element={
-                  <AddCard />
+                  <PrivateRoute><AddCard /></PrivateRoute>
               }
             />
             <Route path="/signup" element={<SignUp />} />
@@ -26,6 +39,8 @@ function AllRoutes() {
         </div>
         <Footer />
       </div>
+    </UserContextProvider>
+
     </BrowserRouter>
   );
 }
