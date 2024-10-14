@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+const baseUrl=import.meta.env.VITE_Backend_Url
 
 const CardDetail = () => {
   const { id } = useParams();
   const [cardData, setCardData] = useState({});
   useEffect(() => {
-    fetch(`http://localhost:5000/public/cards/${id}`)
+    fetch(`${baseUrl}/public/cards/${id}`)
       .then(res => res.json())
       .then(data => {
         console.log(JSON.stringify(data, null, 2));

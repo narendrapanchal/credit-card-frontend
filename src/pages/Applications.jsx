@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { UserContext } from '../context/userContext';
 import { Link, useSearchParams } from 'react-router-dom';
+const baseUrl=import.meta.env.VITE_Backend_Url
 
 const Applications = () => {
   const [applications, setApplications] = useState([]);
@@ -17,11 +18,12 @@ const Applications = () => {
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/admin/applications', {
+        const response = await axios.get(`${baseUrl}/admin/applications`, {
           headers: {
             Authorization: `${login.token}`,
           },
         });
+        console.log(response.data)
         setApplications(response.data);
       } catch (err) {
         setError('Failed to fetch applications.');
@@ -111,8 +113,8 @@ const Applications = () => {
         <tbody>
           {applications
             .filter((app) => app.status === status || status === "")
-            .filter((app) => app.personalInfo.category === category || category === "")
-            .filter((app) => app.personalInfo.bank === bank || bank === "")
+            .filter((app) => app.cardId.category === category || category === "")
+            .filter((app) => app.cardId.bank === bank || bank === "")
             .map((app) => (
               <tr key={app._id} className="border-b hover:bg-gray-700 text-center">
                 <td className="py-2 px-4 border">{app.status}</td>

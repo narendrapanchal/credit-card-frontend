@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useNavigation, useParams } from 'react-router-dom';
 import { UserContext } from '../context/userContext';
 import axios from 'axios';
+const baseUrl=import.meta.env.VITE_Backend_Url
 
 function EditApplication() {
     const { id } = useParams();
@@ -13,7 +14,7 @@ function EditApplication() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/admin/applications/${id}`, {
+                const response = await fetch(`${baseUrl}/admin/applications/${id}`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': login.token
@@ -34,7 +35,7 @@ function EditApplication() {
 
     const handleApprove = async () => {
         try {
-            await axios.put(`http://localhost:5000/admin/applications/${id}`, { status: 'approved' }, {
+            await axios.put(`${baseUrl}/admin/applications/${id}`, { status: 'approved' }, {
                 headers: {
                     'Authorization': login.token
                 }
@@ -48,7 +49,7 @@ function EditApplication() {
 
     const handleReject = async () => {
         try {
-            await axios.put(`http://localhost:5000/admin/applications/${id}`, { status: 'rejected' }, {
+            await axios.put(`${baseUrl}/admin/applications/${id}`, { status: 'rejected' }, {
                 headers: {
                     'Authorization': login.token
                 }
@@ -90,20 +91,20 @@ function EditApplication() {
                     <div className="mb-2"><strong>Credit Limit:</strong> ₹{data.cardId.limit}</div>
                     <div className="mb-2"><strong>Category:</strong> {data.cardId.category}</div>
                     <div className="mb-2"><strong>Bank:</strong> {data.cardId.bank}</div>
-                    <div className="mb-2"><strong>Pros:</strong>
+                    {data?.cardId?.pros?.length>0&& <div className="mb-2"><strong>Pros:</strong>
                         <ul>
                             {data.cardId.pros.map((pro, index) => (
                                 <li key={index}>- {pro}</li>
                             ))}
                         </ul>
-                    </div>
-                    <div className="mb-2"><strong>Cons:</strong>
+                    </div>}
+                    {data?.cardId?.cons?.length>0&&<div className="mb-2"><strong>Cons:</strong>
                         <ul>
                             {data.cardId.cons.map((con, index) => (
                                 <li key={index}>- {con}</li>
                             ))}
                         </ul>
-                    </div>
+                    </div>}
                 </div>
             </div>
 

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { UserContext } from '../context/userContext';
-
+const baseUrl=import.meta.env.VITE_Backend_Url
 const AddCardForm = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -57,7 +57,7 @@ const AddCardForm = () => {
 
     try {
       await axios.post(
-        'http://localhost:5000/admin/add-card',
+        `${baseUrl}/admin/add-card`,
         formData,
         {
           headers: {
