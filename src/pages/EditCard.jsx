@@ -64,7 +64,7 @@ const EditCardForm = () => {
       });
 
       alert("Card Edited successfully!");
-      fetchEditableData
+      fetchEditableData()
     } catch (error) {
       setMessage("Failed to edit card. Please try again.");
     }
