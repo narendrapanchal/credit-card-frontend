@@ -40,7 +40,7 @@ function AllRoutes() {
                 }
               />
               <Route path="/apply/:id" element={<Apply />} />
-              <Route path="/admin/login" element={<Login />} />
+              <Route path="/admin/login" element={<h1>ADMIN / LOGIN</h1>} />
               <Route
                 path="/add-card"
                 element={
