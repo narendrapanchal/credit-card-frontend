@@ -49,7 +49,7 @@ function AllRoutes() {
                   </PrivateRoute>
                 }
               />
-              <Route path="*" component={<NotFound/>} />
+              <Route path="*" element={<NotFound/>} />
               {/* <Route path="/signup" element={<SignUp />} /> */}
             </Routes>
           </div>
