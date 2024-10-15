@@ -8,7 +8,7 @@ function Header() {
     <header className="bg-slate-800 text-white w-full py-4 text-xl">
       <div className="container flex justify-between ">
         <h2>
-          <Link to="/">Trending Cards</Link>
+          <Link to="/">Trending Cards {login?.token&&"| Admin"}</Link>
         </h2>
         <ul className="flex justify-between gap-6 ">
           {login?.token && (
@@ -21,12 +21,8 @@ function Header() {
               <Link to="/applications">Applications</Link>
             </li>
           )}
-          {login?.token ? (
+          {login?.token && (
             <button onClick={handleLogout}>Logout</button>
-          ) : (
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
           )}
         </ul>
       </div>
