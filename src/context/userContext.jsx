@@ -14,7 +14,7 @@ const UserContextProvider = ({ children }) => {
   const handleLogout = () => {
     setLogin(null);
     localStorage.removeItem("token");
-    navigate("/login");
+    navigate("/");
   };
   return (
     <UserContext.Provider value={{ handleLogin, login, handleLogout }}>
