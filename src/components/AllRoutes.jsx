@@ -11,6 +11,7 @@ import Apply from "../pages/Apply";
 import Applications from "../pages/Applications";
 import EditApplication from "../pages/EditApplication";
 import UserContextProvider from "../context/userContext";
+import NotFound from "../pages/NotFound";
 
 function AllRoutes() {
   return (
@@ -48,6 +49,7 @@ function AllRoutes() {
                   </PrivateRoute>
                 }
               />
+              <Route path="*" component={<NotFound/>} />
               {/* <Route path="/signup" element={<SignUp />} /> */}
             </Routes>
           </div>
