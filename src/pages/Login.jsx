@@ -32,7 +32,6 @@ const Login = () => {
       });
       const token = response.data.token;
       handleLogin(token);
-      localStorage.setItem("token", token);
       alert("Login successful!");
       navigate("/");
     } catch (err) {
