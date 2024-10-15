@@ -48,7 +48,7 @@ function AllRoutes() {
                   </PrivateRoute>
                 }
               />
-              <Route path="/signup" element={<SignUp />} />
+              {/* <Route path="/signup" element={<SignUp />} /> */}
             </Routes>
           </div>
           <Footer />
