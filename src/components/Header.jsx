@@ -21,8 +21,12 @@ function Header() {
               <Link to="/applications">Applications</Link>
             </li>
           )}
-          {login?.token && (
+          {login?.token ? (
             <button onClick={handleLogout}>Logout</button>
+          ) : (
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
           )}
         </ul>
       </div>
