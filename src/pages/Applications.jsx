@@ -102,9 +102,9 @@ const Applications = () => {
       {applications
             .filter((app) => app.status === status || status === "")
             .filter(
-              (app) => app.cardId.category === category || category === ""
+              (app) => app?.cardId?.category === category || category === ""
             )
-            .filter((app) => app.cardId.bank === bank || bank === "")
+            .filter((app) => app?.cardId?.bank === bank || bank === "")
           .length==0?<h1 className="text-2xl font-bold text-red-500">No application found.</h1>:
          <table className="min-w-full bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] text-white">
         <thead>
@@ -122,9 +122,9 @@ const Applications = () => {
           {applications
             .filter((app) => app.status === status || status === "")
             .filter(
-              (app) => app.cardId.category === category || category === ""
+              (app) => app?.cardId?.category === category || category === ""
             )
-            .filter((app) => app.cardId.bank === bank || bank === "")
+            .filter((app) => app?.cardId?.bank === bank || bank === "")
             .map((app) => (
               <tr
                 key={app._id}
