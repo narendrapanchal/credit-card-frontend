@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 const baseUrl = import.meta.env.VITE_Backend_Url;
 import { UserContext } from "../context/userContext";
 
 const CardDetail = () => {
   const { id } = useParams();
   const [cardData, setCardData] = useState({});
+  const navigate=useNavigate();
   useEffect(() => {
     fetch(`${baseUrl}/public/cards/${id}`)
       .then((res) => res.json())
@@ -15,8 +16,21 @@ const CardDetail = () => {
       })
       .catch((error) => console.error("Error:", error));
   }, []);
-  const {login}=useContext(UserContext)
-
+  const { login } = useContext(UserContext)
+  const handleDelete = async () => {
+    try {
+      await fetch(`${import.meta.env.VITE_Backend_Url}/admin/delete-card/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `${login.token}`,
+        },
+      });
+      alert("Card deleted successfully!");
+      navigate("/");
+    } catch (error) {
+      alert(error.message);
+    }
+  }
   return (
     <div className="p-4 max-w-lg mx-auto">
       <img
@@ -58,20 +72,31 @@ const CardDetail = () => {
       )}
 
       <div className="mt-2 flex flex-col gap-2">
-      {login?.token && (
-  <Link
-    to={`/edit-card/${id}`}
-    className="min-w-36 text-center bg-gradient-to-r from-green-600 to-green-700 text-white px-4 py-2 rounded transition-all duration-300 hover:from-green-700 hover:to-green-600 transition"
-  >
-    Edit
-  </Link>
-)}
-        <Link
-          to={`/apply/${cardData._id}`}
-          className="bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)]  transition-all duration-300 hover:from-[rgb(75,85,99)] hover:to-[rgb(30,41,59)] text-white px-4 py-2 rounded text-center"
-        >
-          Apply Now
-        </Link>
+        {login?.token && (
+          <Link
+            to={`/edit-card/${id}`}
+            className="min-w-36 text-center bg-gradient-to-r from-green-600 to-green-700 text-white px-4 py-2 rounded transition-all duration-300 hover:from-green-700 hover:to-green-600 transition"
+          >
+            Edit
+          </Link>
+        )}
+        {!login?.token &&
+
+          <Link
+            to={`/apply/${cardData._id}`}
+            className="bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)]  transition-all duration-300 hover:from-[rgb(75,85,99)] hover:to-[rgb(30,41,59)] text-white px-4 py-2 rounded text-center"
+          >
+            Apply Now
+          </Link>
+        }
+        {login?.token && (
+    <button
+      onClick={handleDelete}
+      className="w-full text-center bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 rounded transition-all duration-300 hover:from-red-700 hover:to-red-600 transition"
+    >
+      Delete
+    </button>
+  )}
       </div>
     </div>
   );
