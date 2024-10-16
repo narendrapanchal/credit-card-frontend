@@ -99,7 +99,14 @@ const Applications = () => {
           </select>
         </div>
       </div>
-      <table className="min-w-full bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] text-white">
+      {applications
+            .filter((app) => app.status === status || status === "")
+            .filter(
+              (app) => app.cardId.category === category || category === ""
+            )
+            .filter((app) => app.cardId.bank === bank || bank === "")
+          .length==0?<h1 className="text-2xl font-bold text-red-500">No application found.</h1>:
+         <table className="min-w-full bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] text-white">
         <thead>
           <tr>
             <th className="py-2 px-4 border">Status</th>
@@ -111,6 +118,7 @@ const Applications = () => {
           </tr>
         </thead>
         <tbody>
+        
           {applications
             .filter((app) => app.status === status || status === "")
             .filter(
@@ -135,7 +143,7 @@ const Applications = () => {
               </tr>
             ))}
         </tbody>
-      </table>
+      </table>}
     </div>
   );
 };

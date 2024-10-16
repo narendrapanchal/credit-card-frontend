@@ -5,7 +5,7 @@ import { UserContext } from "../context/userContext";
 function Header() {
   const { login, handleLogout } = useContext(UserContext);
   return (
-    <header className="bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] text-white w-full py-4 text-xl">
+    <header className="bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] text-white w-full py-4  ">
       <div className="container flex justify-between ">
         <h2>
           <Link to="/">Trending Cards {login?.token&&"| Admin"}</Link>

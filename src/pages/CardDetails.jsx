@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 const baseUrl = import.meta.env.VITE_Backend_Url;
+import { UserContext } from "../context/userContext";
 
 const CardDetail = () => {
   const { id } = useParams();
@@ -14,6 +15,7 @@ const CardDetail = () => {
       })
       .catch((error) => console.error("Error:", error));
   }, []);
+  const {login}=useContext(UserContext)
 
   return (
     <div className="p-4 max-w-lg mx-auto">
@@ -55,10 +57,18 @@ const CardDetail = () => {
         </>
       )}
 
-      <div className="mt-2">
+      <div className="mt-2 flex flex-col gap-2">
+      {login?.token && (
+  <Link
+    to={`/edit-card/${id}`}
+    className="min-w-36 text-center bg-gradient-to-r from-green-600 to-green-700 text-white px-4 py-2 rounded transition-all duration-300 hover:from-green-700 hover:to-green-600 transition"
+  >
+    Edit
+  </Link>
+)}
         <Link
           to={`/apply/${cardData._id}`}
-          className="bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)]  transition-all duration-300 hover:from-[rgb(75,85,99)] hover:to-[rgb(30,41,59)] text-white px-4 py-2 rounded"
+          className="bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)]  transition-all duration-300 hover:from-[rgb(75,85,99)] hover:to-[rgb(30,41,59)] text-white px-4 py-2 rounded text-center"
         >
           Apply Now
         </Link>
