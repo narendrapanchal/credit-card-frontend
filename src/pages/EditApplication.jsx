@@ -74,7 +74,7 @@ function EditApplication() {
 
   return (
     <div className="mt-4 mb-4">
-      <div className="edit-application-container p-6 bg-slate-900 text-white rounded-lg shadow-lg container">
+      <div className="edit-application-container p-6 bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] text-white rounded-lg shadow-lg container">
         <h2 className="text-2xl mb-6">Application Details</h2>
         <div className="flex flex-wrap justify-between">
           {/* Personal Info Section */}
@@ -149,13 +149,13 @@ function EditApplication() {
           <div className="flex space-x-4">
             <button
               onClick={handleApprove}
-              className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
+              className="bg-gradient-to-r from-green-600 to-green-700 text-white  rounded transition-all duration-300 hover:from-green-700 hover:to-green-600 text-white py-2 px-4 rounded"
             >
               Approve
             </button>
             <button
               onClick={handleReject}
-              className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
+              className="bg-gradient-to-r from-red-600 to-red-700  transition-all duration-300 hover:from-red-700 hover:to-red-600 text-white py-2 px-4 rounded"
             >
               Reject
             </button>

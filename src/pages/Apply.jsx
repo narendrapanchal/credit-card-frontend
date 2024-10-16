@@ -115,7 +115,7 @@ const ApplicationForm = () => {
       <h2 className="text-xl text-center mb-4">Application Form</h2>
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-lg mx-auto bg-slate-800 text-white p-8 rounded shadow-md"
+        className="w-full max-w-lg mx-auto bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] text-white p-8 rounded shadow-md"
       >
         <div className="mb-4">
           <label className="block mb-2">Name</label>
@@ -125,7 +125,7 @@ const ApplicationForm = () => {
             value={formData.name}
             onChange={handleChange}
             required
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] p-2 border border-gray-300 rounded"
           />
         </div>
         <div className="mb-4">
@@ -136,7 +136,7 @@ const ApplicationForm = () => {
             value={formData.income}
             onChange={handleChange}
             required
-            className="w-full p-2 border border-gray-300 rounded"
+            className=" bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] w-full p-2 border border-gray-300 rounded"
           />
         </div>
         <div className="mb-4">
@@ -147,7 +147,7 @@ const ApplicationForm = () => {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full p-2 border border-gray-300 rounded"
+            className="bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] w-full p-2 border border-gray-300 rounded"
           />
         </div>
         <div className="mb-4">
@@ -158,7 +158,7 @@ const ApplicationForm = () => {
             value={formData.phone}
             onChange={handleChange}
             required
-            className="w-full p-2 border border-gray-300 rounded"
+            className="bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] w-full p-2 border border-gray-300 rounded"
           />
         </div>
         <div className="mb-4">
@@ -169,7 +169,7 @@ const ApplicationForm = () => {
             value={formData.aadhar}
             onChange={handleChange}
             required
-            className="w-full p-2 border border-gray-300 rounded"
+            className="bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] w-full p-2 border border-gray-300 rounded"
           />
         </div>
         <div className="mb-4">
@@ -180,7 +180,7 @@ const ApplicationForm = () => {
             value={formData.pancard}
             onChange={handleChange}
             required
-            className="w-full p-2 border border-gray-300 rounded"
+            className="bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] w-full p-2 border border-gray-300 rounded"
           />
         </div>
         <div className="mb-4">
@@ -191,7 +191,7 @@ const ApplicationForm = () => {
             value={formData.address}
             onChange={handleChange}
             required
-            className="w-full p-2 border border-gray-300 rounded"
+            className="bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] w-full p-2 border border-gray-300 rounded"
           />
         </div>
         <div className="mb-4">
@@ -202,7 +202,7 @@ const ApplicationForm = () => {
             value={formData.pincode}
             onChange={handleChange}
             required
-            className="w-full p-2 border border-gray-300 rounded"
+            className="bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] w-full p-2 border border-gray-300 rounded"
           />
         </div>
         <button

@@ -142,7 +142,7 @@ const AddCardForm = () => {
       <h2 className="text-xl text-center mb-4">Add a New Credit Card</h2>
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-lg mx-auto bg-slate-800 text-white p-8 rounded shadow-md"
+        className="w-full max-w-lg mx-auto bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] text-white p-8 rounded shadow-md"
       >
         <div className="mb-4">
           <label className="block mb-2">Card Name</label>
@@ -152,7 +152,7 @@ const AddCardForm = () => {
             value={formData.name}
             onChange={handleChange}
             required
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-300 bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] rounded"
           />
         </div>
         <div className="mb-4">
@@ -163,7 +163,7 @@ const AddCardForm = () => {
             value={formData.src}
             onChange={handleChange}
             required
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-300 bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] rounded"
           />
         </div>
         <div className="mb-4">
@@ -174,7 +174,7 @@ const AddCardForm = () => {
             value={formData.limit}
             onChange={handleChange}
             required
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-300 bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] rounded"
           />
         </div>
         <div className="mb-4">
@@ -184,7 +184,7 @@ const AddCardForm = () => {
             value={formData.category}
             onChange={handleChange}
             required
-            className="bg-slate-800 w-full p-2 border border-gray-300 rounded"
+            className="bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] w-full p-2 border border-gray-300 bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] rounded"
           >
             <option value="Travel Cards">Travel Cards</option>
             <option value="Corporate Cards">Corporate Cards</option>
@@ -199,7 +199,7 @@ const AddCardForm = () => {
             value={formData.bank}
             onChange={handleChange}
             required
-            className="bg-slate-800 w-full p-2 border border-gray-300 rounded"
+            className="bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] w-full p-2 border border-gray-300 bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] rounded"
           >
             <option value="Bank of America">Bank of America</option>
             <option value="Chase">Chase</option>
@@ -215,12 +215,12 @@ const AddCardForm = () => {
                 type="text"
                 value={pro}
                 onChange={(e) => handleProChange(index, e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded"
+                className="w-full p-2 border border-gray-300 bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] rounded"
               />
               <button
                 type="button"
                 onClick={() => handleRemovePro(index)}
-                className="bg-red-600 hover:bg-red-800 text-white text-3xl ml-2 py-0 px-2 rounded-full"
+                className="bg-gradient-to-r from-red-600 to-red-700  transition-all duration-300 hover:from-red-700 hover:to-red-600 text-white text-3xl ml-2 py-0 px-2 rounded-full"
               >
                 &times;
               </button>
@@ -242,7 +242,7 @@ const AddCardForm = () => {
                 type="text"
                 value={con}
                 onChange={(e) => handleConChange(index, e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded"
+                className="w-full p-2 border border-gray-300 bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] rounded"
               />
               <button
                 type="button"

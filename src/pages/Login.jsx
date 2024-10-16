@@ -46,7 +46,7 @@ const Login = () => {
 
   return (
     <div className="login-container flex justify-center items-center ">
-      <div className="login-box bg-slate-800 text-white p-8 rounded-lg shadow-lg">
+      <div className="login-box bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] text-white p-8 rounded-lg shadow-lg">
         <h2 className="text-xl mb-4 text-center">Admin Login</h2>
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <form onSubmit={handleSubmit}>
@@ -57,7 +57,7 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] p-2 border border-gray-300 rounded"
             />
           </div>
           <div className="mb-6">
@@ -67,7 +67,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)]   p-2 border border-gray-300 rounded"
             />
           </div>
           <button

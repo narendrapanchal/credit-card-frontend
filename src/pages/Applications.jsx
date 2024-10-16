@@ -51,7 +51,7 @@ const Applications = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="application-details-container container">
+    <div className="application-details-container container ">
       <h2 className="text-2xl mb-4">Applications</h2>
       <div className="flex justify-end mt-4">
         <div className="mb-4">
@@ -60,7 +60,7 @@ const Applications = () => {
             value={category}
             onChange={handleCategoryChange}
             required
-            className="bg-slate-800 w-full p-2 border border-gray-300 rounded text-white"
+            className="bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] w-full p-2 border border-gray-300 rounded text-white"
           >
             <option value="">All</option>
             <option value="Travel Cards">Travel Cards</option>
@@ -75,7 +75,7 @@ const Applications = () => {
             value={bank}
             onChange={handleBankChange}
             required
-            className="text-white bg-slate-800 w-full p-2 border border-gray-300 rounded"
+            className="text-white bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] w-full p-2 border border-gray-300 rounded"
           >
             <option value="">All</option>
             <option value="Bank of America">Bank of America</option>
@@ -90,7 +90,7 @@ const Applications = () => {
             value={status}
             onChange={handleStatusChange}
             required
-            className="text-white bg-slate-800 w-full p-2 border border-gray-300 rounded"
+            className="text-white bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] w-full p-2 border border-gray-300 rounded"
           >
             <option value="">All</option>
             <option value="pending">Pending</option>
@@ -99,7 +99,7 @@ const Applications = () => {
           </select>
         </div>
       </div>
-      <table className="min-w-full bg-slate-800 text-white">
+      <table className="min-w-full bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] text-white">
         <thead>
           <tr>
             <th className="py-2 px-4 border">Status</th>

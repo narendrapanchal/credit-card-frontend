@@ -2,7 +2,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer className="bg-slate-800 text-white w-full text-sm p-4">
+    <footer className="bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] text-white w-full text-sm p-4">
       <div className="container text-center">
         <p>Follow us on:</p>
         <ul className="social-links flex justify-center gap-6">

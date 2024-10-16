@@ -58,7 +58,7 @@ const CardDetail = () => {
       <div className="mt-2">
         <Link
           to={`/apply/${cardData._id}`}
-          className=" bg-slate-800 text-white px-4 py-2 rounded"
+          className="bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)]  transition-all duration-300 hover:from-[rgb(75,85,99)] hover:to-[rgb(30,41,59)] text-white px-4 py-2 rounded"
         >
           Apply Now
         </Link>

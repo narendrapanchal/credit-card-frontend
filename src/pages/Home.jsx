@@ -44,7 +44,7 @@ function Home() {
             value={category}
             onChange={handleCategoryChange}
             required
-            className="bg-slate-800 w-full p-2 border border-gray-300 rounded text-white"
+            className="bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)]  w-full p-2 border border-gray-300 rounded text-white"
           >
             <option value="">All</option>
             <option value="Travel Cards">Travel Cards</option>
@@ -59,7 +59,7 @@ function Home() {
             value={bank}
             onChange={handleBankChange}
             required
-            className="text-white bg-slate-800 w-full p-2 border border-gray-300 rounded"
+            className="text-white bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)]  w-full p-2 border border-gray-300 rounded"
           >
             <option value="">All</option>
             <option value="Bank of America">Bank of America</option>
@@ -70,6 +70,10 @@ function Home() {
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+      {data
+          .filter((item) => item.bank === bank || bank === "")
+          .filter((item) => item.category === category || category === "")
+          .length==0&&<h1 className="text-2xl font-bold text-red-500">No credit card found.</h1>}
         {data
           .filter((item) => item.bank === bank || bank === "")
           .filter((item) => item.category === category || category === "")

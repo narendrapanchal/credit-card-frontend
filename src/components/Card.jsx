@@ -30,14 +30,14 @@ const Card = ({ id, name, src, limit, category, bank }) => {
       <div className="flex justify-between">
       <Link
         to={`/card/${id}`}
-        className="min-w-36 text-center bg-slate-800 text-white px-4 py-2 rounded"
+        className="min-w-36 text-center bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)]  transition-all duration-300 hover:from-[rgb(75,85,99)] hover:to-[rgb(30,41,59)] text-white px-4 py-2 rounded"
       >
         Read More
       </Link>
       {login?.token && (
   <Link
     to={`/edit-card/${id}`}
-    className="min-w-36 text-center bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+    className="min-w-36 text-center bg-gradient-to-r from-green-600 to-green-700 text-white px-4 py-2 rounded transition-all duration-300 hover:from-green-700 hover:to-green-600 transition"
   >
     Edit
   </Link>
@@ -47,7 +47,7 @@ const Card = ({ id, name, src, limit, category, bank }) => {
   {login?.token && (
     <button
       onClick={handleDelete}
-      className="w-full mt-2 text-center bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
+      className="w-full mt-2 text-center bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 rounded transition-all duration-300 hover:from-red-700 hover:to-red-600 transition"
     >
       Delete
     </button>
