@@ -7,7 +7,7 @@ function Header() {
   return (
     <header className="bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] text-white w-full py-4  ">
       <div className="container flex justify-between ">
-        <h2>
+        <h2 className="text-xl">
           <Link to="/">Trending Cards {login?.token&&"| Admin"}</Link>
         </h2>
         <ul className="flex justify-between gap-6 ">
