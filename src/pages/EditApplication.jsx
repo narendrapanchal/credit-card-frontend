@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useNavigation, useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "../context/userContext";
 import axios from "axios";
 const baseUrl = import.meta.env.VITE_Backend_Url;
@@ -14,6 +14,7 @@ function EditApplication() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const response = await fetch(`${baseUrl}/admin/applications/${id}`, {
           headers: {
             "Content-Type": "application/json",
@@ -81,52 +82,51 @@ function EditApplication() {
           <div className="w-full md:w-1/2 mb-4">
             <h3 className="text-2xl mb-2 font-bold">Personal Information</h3>
             <div className="mb-2">
-              <strong>Name:</strong> {data.personalInfo.name}
+              <strong>Name:</strong> {data?.personalInfo.name}
             </div>
             <div className="mb-2">
-              <strong>Income:</strong> ₹{data.personalInfo.income}
+              <strong>Income:</strong> ₹{data?.personalInfo.income}
             </div>
             <div className="mb-2">
-              <strong>Email:</strong> {data.personalInfo.email}
+              <strong>Email:</strong> {data?.personalInfo.email}
             </div>
             <div className="mb-2">
-              <strong>Phone:</strong> {data.personalInfo.phone}
+              <strong>Phone:</strong> {data?.personalInfo.phone}
             </div>
             <div className="mb-2">
-              <strong>Aadhar:</strong> {data.personalInfo.aadhar}
+              <strong>Aadhar:</strong> {data?.personalInfo.aadhar}
             </div>
             <div className="mb-2">
-              <strong>Pancard:</strong> {data.personalInfo.pancard}
+              <strong>Pancard:</strong> {data?.personalInfo.pancard}
             </div>
             <div className="mb-2">
-              <strong>Address:</strong> {data.personalInfo.address}
+              <strong>Address:</strong> {data?.personalInfo.address}
             </div>
             <div className="mb-2">
-              <strong>Pincode:</strong> {data.personalInfo.pincode}
+              <strong>Pincode:</strong> {data?.personalInfo.pincode}
             </div>
           </div>
 
-          {/* Card Info Section */}
           <div className="w-full md:w-1/2 mb-4">
             <h3 className="text-2xl mb-2 font-bold">Card Details</h3>
             <div className="mb-2">
-              <strong>Card Name:</strong> {data.cardId.name}
+              <strong>Card Name:</strong> {data?.cardId.name}
             </div>
 
             <div className="mb-2">
-              <strong>Credit Limit:</strong> ₹{data.cardId.limit}
+              <strong>Credit Limit:</strong> ₹{data?.cardId.limit}
             </div>
             <div className="mb-2">
-              <strong>Category:</strong> {data.cardId.category}
+              <strong>Category:</strong> {data?.cardId.category}
             </div>
             <div className="mb-2">
-              <strong>Bank:</strong> {data.cardId.bank}
+              <strong>Bank:</strong> {data?.cardId.bank}
             </div>
             {data?.cardId?.pros?.length > 0 && (
               <div className="mb-2">
                 <strong>Pros:</strong>
                 <ul>
-                  {data.cardId.pros.map((pro, index) => (
+                  {data?.cardId.pros.map((pro, index) => (
                     <li key={index}>- {pro}</li>
                   ))}
                 </ul>
@@ -136,7 +136,7 @@ function EditApplication() {
               <div className="mb-2">
                 <strong>Cons:</strong>
                 <ul>
-                  {data.cardId.cons.map((con, index) => (
+                  {data?.cardId.cons.map((con, index) => (
                     <li key={index}>- {con}</li>
                   ))}
                 </ul>
@@ -145,7 +145,7 @@ function EditApplication() {
           </div>
         </div>
 
-        {data.status === "pending" && (
+        {data?.status === "pending" && (
           <div className="flex space-x-4">
             <button
               onClick={handleApprove}
