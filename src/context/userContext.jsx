@@ -8,8 +8,8 @@ const UserContextProvider = ({ children }) => {
     { token: localStorage.getItem("token") } || null
   );
   const handleLogin = (data) => {
-    localStorage.setItem("token", "Bearer "+data); 
-    setLogin({ token: "Bearer "+data });
+    localStorage.setItem("token", "Bearer " + data);
+    setLogin({ token: "Bearer " + data });
   };
   const handleLogout = () => {
     setLogin(null);

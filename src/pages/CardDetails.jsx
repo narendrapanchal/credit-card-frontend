@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-const baseUrl = import.meta.env.VITE_Backend_Url;
 import { UserContext } from "../context/userContext";
 
 const CardDetail = () => {
@@ -8,7 +7,7 @@ const CardDetail = () => {
   const [cardData, setCardData] = useState({});
   const navigate=useNavigate();
   useEffect(() => {
-    fetch(`${baseUrl}/public/cards/${id}`)
+    fetch(`${import.meta.env.VITE_Backend_Url}/public/cards/${id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(JSON.stringify(data, null, 2));

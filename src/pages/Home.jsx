@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Card from "../components/Card";
-const baseUrl = import.meta.env.VITE_Backend_Url;
 
 function Home() {
   const [data, setData] = useState([]);
@@ -13,7 +12,7 @@ function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${baseUrl}/public/cards`);
+        const response = await fetch(`${import.meta.env.VITE_Backend_Url}/public/cards`);
         const result = await response.json();
         console.log(JSON.stringify(result, null, 2));
         setData(result);

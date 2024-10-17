@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-const baseUrl = import.meta.env.VITE_Backend_Url;
+
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,7 +21,7 @@ const Signup = () => {
     }
 
     try {
-      const response = await axios.post(`${baseUrl}/admin/register`, {
+      const response = await axios.post(`${import.meta.env.VITE_Backend_Url}/admin/register`, {
         email,
         password,
       });

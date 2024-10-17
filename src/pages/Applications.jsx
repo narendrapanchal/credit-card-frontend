@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { UserContext } from "../context/userContext";
 import { Link, useSearchParams } from "react-router-dom";
-const baseUrl = import.meta.env.VITE_Backend_Url;
 
 const Applications = () => {
   const [applications, setApplications] = useState([]);
@@ -18,7 +17,7 @@ const Applications = () => {
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const response = await axios.get(`${baseUrl}/admin/applications`, {
+        const response = await axios.get(`${import.meta.env.VITE_Backend_Url}/admin/applications`, {
           headers: {
             Authorization: `${login.token}`,
           },

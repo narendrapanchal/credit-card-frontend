@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import axios from "axios"; // To make HTTP requests
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../context/userContext";
-const baseUrl = import.meta.env.VITE_Backend_Url;
 
 const Login = () => {
   const { handleLogin } = useContext(UserContext);
@@ -26,7 +25,7 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post(`${baseUrl}/admin/login`, {
+      const response = await axios.post(`${import.meta.env.VITE_Backend_Url}/admin/login`, {
         email,
         password,
       });

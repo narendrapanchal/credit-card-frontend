@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-const baseUrl = import.meta.env.VITE_Backend_Url;
 
 const ApplicationForm = () => {
   const { id } = useParams();
@@ -89,7 +88,7 @@ const ApplicationForm = () => {
     }
 
     try {
-      const response = await axios.post(`${baseUrl}/user/apply`, {
+      const response = await axios.post(`${import.meta.env.VITE_Backend_Url}/user/apply`, {
         cardId: id,
         personalInfo: formData,
       });

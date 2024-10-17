@@ -28,7 +28,7 @@ const AddCardForm = () => {
     setMessage("");
 
     const { name, src, limit, pros, cons } = formData;
-    if(name.length < 3) {
+    if (name.length < 3) {
       setMessage("Name must be at least 3 characters long.");
       return;
     }

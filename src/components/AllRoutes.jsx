@@ -1,6 +1,5 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Login from "../pages/Login";
-import SignUp from "../pages/SignUp";
 import Header from "./Header";
 import Footer from "./Footer";
 import AddCard from "../pages/AddCard";
@@ -51,7 +50,7 @@ function AllRoutes() {
                   </PrivateRoute>
                 }
               />
-              <Route path="*" element={<NotFound/>} />
+              <Route path="*" element={<NotFound />} />
               {/* <Route path="/signup" element={<SignUp />} /> */}
             </Routes>
           </div>
