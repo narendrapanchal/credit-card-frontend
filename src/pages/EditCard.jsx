@@ -147,6 +147,7 @@ const EditCardForm = () => {
       <h2 className="text-xl text-center mb-4">Add a New Credit Card</h2>
       <form
         onSubmit={handleSubmit}
+        data-test="edit-form"
         className="w-full max-w-lg mx-auto bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)]  text-white p-8 rounded shadow-md"
       >
         <div className="mb-4">
@@ -154,6 +155,7 @@ const EditCardForm = () => {
           <input
             type="text"
             name="name"
+            data-test="edit-name"
             value={formData.name}
             onChange={handleChange}
             required
@@ -165,6 +167,7 @@ const EditCardForm = () => {
           <input
             type="text"
             name="src"
+            data-test="edit-src"
             value={formData.src}
             onChange={handleChange}
             required
@@ -177,6 +180,7 @@ const EditCardForm = () => {
             type="number"
             name="limit"
             value={formData.limit}
+            data-test="edit-limit"
             onChange={handleChange}
             required
             className="w-full bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)]  p-2 border border-gray-300 rounded"
@@ -186,6 +190,7 @@ const EditCardForm = () => {
           <label className="block mb-2">Category</label>
           <select
             name="category"
+            data-test="edit-category"
             value={formData.category}
             onChange={handleChange}
             required
@@ -201,6 +206,7 @@ const EditCardForm = () => {
           <label className="block mb-2">Bank Name</label>
           <select
             name="bank"
+            data-test="edit-bank"
             value={formData.bank}
             onChange={handleChange}
             required
@@ -268,6 +274,7 @@ const EditCardForm = () => {
         </div>
         <button
           type="submit"
+          data-test="edit-submit"
           className="w-full  bg-slate-600 hover:bg-slate-900 text-white py-2 rounded"
         >
           Submit

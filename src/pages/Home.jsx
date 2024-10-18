@@ -76,8 +76,8 @@ function Home() {
         {data
           .filter((item) => item.bank === bank || bank === "")
           .filter((item) => item.category === category || category === "")
-          .map((item) => (
-            <Card key={item._id} {...item} id={item._id} />
+          .map((item,index) => (
+            <Card key={item._id} {...item} index={index+1} id={item._id} />
           ))}
       </div>
     </div>

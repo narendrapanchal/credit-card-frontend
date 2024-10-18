@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../context/userContext";
 
-const Card = ({ id, name, src, limit, category, bank }) => {
+const Card = ({ id, name, src, limit, category, bank , index }) => {
   const { login } = useContext(UserContext);
 
   const handleDelete = async () => {
@@ -33,13 +33,15 @@ const Card = ({ id, name, src, limit, category, bank }) => {
       <div className="flex justify-between">
         <Link
           to={`/card/${id}`}
+          data-test={"Read More "+index}
           className="min-w-36 text-center bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)]  transition-all duration-300 hover:from-[rgb(75,85,99)] hover:to-[rgb(30,41,59)] text-white px-4 py-2 rounded"
         >
           Read More
         </Link>
         {login?.token && (
           <Link
-            to={`/edit-card/${id}`}
+          data-test={"Edit "+index}
+          to={`/edit-card/${id}`}
             className="min-w-36 text-center bg-gradient-to-r from-green-600 to-green-700 text-white px-4 py-2 rounded transition-all duration-300 hover:from-green-700 hover:to-green-600 transition"
           >
             Edit
@@ -50,6 +52,8 @@ const Card = ({ id, name, src, limit, category, bank }) => {
         {login?.token && (
           <button
             onClick={handleDelete}
+            data-test={"Delete "+index}
+
             className="w-full mt-2 text-center bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 rounded transition-all duration-300 hover:from-red-700 hover:to-red-600 transition"
           >
             Delete

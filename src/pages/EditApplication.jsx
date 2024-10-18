@@ -149,6 +149,7 @@ function EditApplication() {
           <div className="flex space-x-4">
             <button
               onClick={handleApprove}
+              data-test="application-approve"
               className="bg-gradient-to-r from-green-600 to-green-700 text-white  rounded transition-all duration-300 hover:from-green-700 hover:to-green-600 text-white py-2 px-4 rounded"
             >
               Approve

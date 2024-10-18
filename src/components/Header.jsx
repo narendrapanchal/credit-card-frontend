@@ -13,15 +13,15 @@ function Header() {
         <ul className="flex justify-between gap-6 ">
           {login?.token && (
             <li>
-              <Link to="/add-card">Add Card</Link>
+              <Link data-test="add-card" to="/add-card">Add Card</Link>
             </li>
           )}
           {login?.token && (
             <li>
-              <Link to="/applications">Applications</Link>
+              <Link data-test="applications" to="/applications">Applications</Link>
             </li>
           )}
-          {login?.token && <button onClick={handleLogout}>Logout</button>}
+          {login?.token && <button onClick={handleLogout} data-test="logout">Logout</button>}
         </ul>
       </div>
     </header>
