@@ -12,9 +12,12 @@ import Applications from "../pages/Applications";
 import EditApplication from "../pages/EditApplication";
 import UserContextProvider from "../context/userContext";
 import NotFound from "../pages/NotFound";
+import { Suspense } from "react";
 
 function AllRoutes() {
   return (
+    <Suspense fallback={<div>Loading...</div>}>
+
     <BrowserRouter>
       <UserContextProvider>
         <div className="layout">
@@ -58,6 +61,7 @@ function AllRoutes() {
         </div>
       </UserContextProvider>
     </BrowserRouter>
+    </Suspense>
   );
 }
 

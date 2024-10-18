@@ -31,7 +31,6 @@ const Login = () => {
       });
       const token = response.data.token;
       handleLogin(token);
-      alert("Login successful!");
       navigate("/");
     } catch (err) {
       setError("Invalid email or password");
@@ -54,6 +53,7 @@ const Login = () => {
             <input
               type="email"
               value={email}
+              data-test="email"
               onChange={(e) => setEmail(e.target.value)}
               required
               className="w-full bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] p-2 border border-gray-300 rounded"
@@ -64,6 +64,7 @@ const Login = () => {
             <input
               type="password"
               value={password}
+              data-test="password"
               onChange={(e) => setPassword(e.target.value)}
               required
               className="w-full bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)]   p-2 border border-gray-300 rounded"
@@ -71,6 +72,7 @@ const Login = () => {
           </div>
           <button
             type="submit"
+            data-test="login-button"
             className="w-full bg-slate-600 hover:bg-slate-900 text-white py-2 rounded"
           >
             Login

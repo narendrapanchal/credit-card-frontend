@@ -37,10 +37,10 @@ const CardDetail = () => {
         alt={cardData?.name}
         className="w-full h-48 object-cover rounded"
       />
-      <h1 className="text-2xl font-bold mt-4">{cardData?.name}</h1>
-      <p className="text-gray-700">Limit: ${cardData?.limit}</p>
-      <p className="text-gray-700">Category: {cardData?.category}</p>
-      <p className="text-gray-700">Bank: {cardData?.bank}</p>
+      <h1 data-test="card-name" className="text-2xl font-bold mt-4">{cardData?.name}</h1>
+      <p  data-test="card-limit" className="text-gray-700">Limit: ${cardData?.limit}</p>
+      <p  data-test="card-category"className="text-gray-700">Category: {cardData?.category}</p>
+      <p data-test="card-bank" className="text-gray-700">Bank: {cardData?.bank}</p>
 
       {cardData?.pros?.length > 0 && (
         <>
@@ -84,7 +84,7 @@ const CardDetail = () => {
           <Link
             to={`/apply/${cardData._id}`}
             className="bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)]  transition-all duration-300 hover:from-[rgb(75,85,99)] hover:to-[rgb(30,41,59)] text-white px-4 py-2 rounded text-center"
-          >
+            data-test="apply-now">
             Apply Now
           </Link>
         }

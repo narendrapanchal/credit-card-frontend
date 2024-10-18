@@ -124,7 +124,7 @@ const Applications = () => {
               (app) => app?.cardId?.category === category || category === ""
             )
             .filter((app) => app?.cardId?.bank === bank || bank === "")
-            .map((app) => (
+            .map((app,index) => (
               <tr
                 key={app._id}
                 className="border-b hover:bg-gray-700 text-center"
@@ -135,7 +135,7 @@ const Applications = () => {
                 <td className="py-2 px-4 border">{app.personalInfo.aadhar}</td>
                 <td className="py-2 px-4 border">{app.personalInfo.pancard}</td>
                 <td className="py-2 px-4 border">
-                    <Link className="underline" to={`/application/${app._id}`}>
+                    <Link data-test={"edit-link "+(index+1)} className="underline" to={`/application/${app._id}`}>
                     {app.status !== "pending" ?"See Details": "Approve/Reject"}
                     </Link>
                 </td>

@@ -121,6 +121,7 @@ const ApplicationForm = () => {
           <input
             type="text"
             name="name"
+            data-test="applicant-name"
             value={formData.name}
             onChange={handleChange}
             required
@@ -132,6 +133,7 @@ const ApplicationForm = () => {
           <input
             type="number"
             name="income"
+            data-test="applicant-income"
             value={formData.income}
             onChange={handleChange}
             required
@@ -143,6 +145,7 @@ const ApplicationForm = () => {
           <input
             type="email"
             name="email"
+            data-test="applicant-email"
             value={formData.email}
             onChange={handleChange}
             required
@@ -154,6 +157,7 @@ const ApplicationForm = () => {
           <input
             type="text"
             name="phone"
+            data-test="applicant-phone"
             value={formData.phone}
             onChange={handleChange}
             required
@@ -165,6 +169,7 @@ const ApplicationForm = () => {
           <input
             type="text"
             name="aadhar"
+            data-test="applicant-aadhar"
             value={formData.aadhar}
             onChange={handleChange}
             required
@@ -176,6 +181,7 @@ const ApplicationForm = () => {
           <input
             type="text"
             name="pancard"
+            data-test="applicant-pancard"
             value={formData.pancard}
             onChange={handleChange}
             required
@@ -187,6 +193,7 @@ const ApplicationForm = () => {
           <input
             type="text"
             name="address"
+            data-test="applicant-address"
             value={formData.address}
             onChange={handleChange}
             required
@@ -199,6 +206,7 @@ const ApplicationForm = () => {
             type="text"
             name="pincode"
             value={formData.pincode}
+            data-test="applicant-pincode"
             onChange={handleChange}
             required
             className="bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)] w-full p-2 border border-gray-300 rounded"
@@ -206,11 +214,14 @@ const ApplicationForm = () => {
         </div>
         <button
           type="submit"
+          data-test="applicant-submit"
           className="w-full bg-slate-600 hover:bg-slate-900 text-white py-2 rounded"
         >
           Submit
         </button>
-        {message && <p className="mt-4 text-center text-lg">{message}</p>}
+        {message && <p
+        data-test="application-message"
+        className="mt-4 text-center text-lg">{message}</p>}
       </form>
     </div>
   );
