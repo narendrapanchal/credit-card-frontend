@@ -144,7 +144,7 @@ const EditCardForm = () => {
 
   return (
     <div className="add-card-form-container mb-4">
-      <h2 className="text-xl text-center mb-4">Add a New Credit Card</h2>
+      <h2 className="text-xl text-center mb-4">Edit Credit Card</h2>
       <form
         onSubmit={handleSubmit}
         data-test="edit-form"
