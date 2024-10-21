@@ -88,14 +88,14 @@ const CardDetail = () => {
             Apply Now
           </Link>
         }
-        {login?.token && (
+        {/* {login?.token && (
     <button
       onClick={handleDelete}
       className="w-full text-center bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 rounded transition-all duration-300 hover:from-red-700 hover:to-red-600 transition"
     >
       Delete
     </button>
-  )}
+  )} */}
       </div>
     </div>
   );
