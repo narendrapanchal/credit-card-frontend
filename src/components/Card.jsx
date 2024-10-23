@@ -7,7 +7,7 @@ const Card = ({ id, name, src, limit, category, bank , index }) => {
 
   const handleDelete = async () => {
     try {
-      console.log(login);
+      console.log(`admin/delete-card/${id}`);
       await fetch(
         `${import.meta.env.VITE_Backend_Url}/admin/delete-card/${id}`,
         {
@@ -49,7 +49,7 @@ const Card = ({ id, name, src, limit, category, bank , index }) => {
         )}
       </div>
       <div>
-        {/* {login?.token && (
+        {login?.token && (
           <button
             onClick={handleDelete}
             data-test={"Delete "+index}
@@ -58,7 +58,7 @@ const Card = ({ id, name, src, limit, category, bank , index }) => {
           >
             Delete
           </button>
-        )} */}
+        )}
       </div>
     </div>
   );
