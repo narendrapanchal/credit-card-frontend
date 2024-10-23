@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../context/userContext";
 
 const Card = ({ id, name, src, limit, category, bank , index }) => {
   const { login } = useContext(UserContext);
-
+  const [loading,setLoading]=useState(false);
   const handleDelete = async () => {
     try {
-      console.log(`admin/delete-card/${id}`);
+      setLoading(true);
       await fetch(
         `${import.meta.env.VITE_Backend_Url}/admin/delete-card/${id}`,
         {
@@ -17,10 +17,13 @@ const Card = ({ id, name, src, limit, category, bank , index }) => {
           },
         }
       );
-      alert("Card deleted successfully!");
+      ("Card deleted successfully!");
       location.reload();
     } catch (error) {
       alert(error.message);
+    }
+    finally{
+      setLoading(false);
     }
   };
   return (
@@ -51,6 +54,7 @@ const Card = ({ id, name, src, limit, category, bank , index }) => {
       <div>
         {login?.token && (
           <button
+          disabled={loading}
             onClick={handleDelete}
             data-test={"Delete "+index}
 

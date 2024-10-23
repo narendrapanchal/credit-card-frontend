@@ -8,7 +8,7 @@ function EditApplication() {
   const { id } = useParams();
   const [data, setData] = useState(null);
   const { login } = useContext(UserContext);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
@@ -22,10 +22,9 @@ function EditApplication() {
           },
         });
         const result = await response.json();
-        console.log(JSON.stringify(result, null, 2));
         setData(result);
       } catch (err) {
-        setError("Failed to fetch application details.");
+        setError(err.response.data.message);
       } finally {
         setLoading(false);
       }
@@ -36,6 +35,7 @@ function EditApplication() {
 
   const handleApprove = async () => {
     try {
+      setLoading(true);
       await axios.put(
         `${baseUrl}/admin/applications/${id}`,
         { status: "approved" },
@@ -45,15 +45,18 @@ function EditApplication() {
           },
         }
       );
-      alert("Application approved!");
       navigate("/applications");
     } catch (error) {
-      alert("Failed to approve the application.");
+      setError(error.response.data.message);
+    }
+    finally{
+      setLoading(false)
     }
   };
 
   const handleReject = async () => {
     try {
+      setLoading(true);
       await axios.put(
         `${baseUrl}/admin/applications/${id}`,
         { status: "rejected" },
@@ -63,14 +66,15 @@ function EditApplication() {
           },
         }
       );
-      alert("Application rejected!");
       navigate("/applications");
     } catch (error) {
-      alert("Failed to reject the application.");
+      setError(error.response.data.message);
+    }
+    finally{
+      setLoading(false)
     }
   };
 
-  if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
   return (
@@ -149,18 +153,23 @@ function EditApplication() {
           <div className="flex space-x-4">
             <button
               onClick={handleApprove}
+              disabled={loading}
               data-test="application-approve"
               className="bg-gradient-to-r from-green-600 to-green-700 text-white  rounded transition-all duration-300 hover:from-green-700 hover:to-green-600 text-white py-2 px-4 rounded"
             >
               Approve
             </button>
             <button
+              disabled={loading}
               onClick={handleReject}
               className="bg-gradient-to-r from-red-600 to-red-700  transition-all duration-300 hover:from-red-700 hover:to-red-600 text-white py-2 px-4 rounded"
             >
               Reject
             </button>
           </div>
+        )}
+          {error && (
+          <p className="mt-4 text-center text-lg text-red-600">{error}</p>
         )}
       </div>
     </div>

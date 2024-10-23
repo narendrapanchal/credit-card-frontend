@@ -5,7 +5,7 @@ import Card from "../components/Card";
 function Home() {
   const [data, setData] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const [loading,setLoading]=useState(true);
   const category = searchParams.get("category") || "";
   const bank = searchParams.get("bank") || "";
 
@@ -14,10 +14,12 @@ function Home() {
       try {
         const response = await fetch(`${import.meta.env.VITE_Backend_Url}/public/cards`);
         const result = await response.json();
-        console.log(JSON.stringify(result, null, 2));
         setData(result);
       } catch (error) {
         console.log(error);
+      }
+      finally{
+        setLoading(false);
       }
     };
 
@@ -33,7 +35,9 @@ function Home() {
     const selectedBank = e.target.value;
     setSearchParams({ category, bank: selectedBank });
   };
-
+  if(loading){
+    return <div>Loading...</div>
+  }
   return (
     <div className="container">
       <div className="flex justify-end mt-4">

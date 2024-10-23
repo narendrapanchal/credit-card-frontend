@@ -16,7 +16,7 @@ const EditCardForm = () => {
   });
   const [message, setMessage] = useState("");
   const { login } = useContext(UserContext);
-
+  const [loading,setLoading]=useState(false);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -57,16 +57,20 @@ const EditCardForm = () => {
     }
 
     try {
+      setLoading(true);
       await axios.put(`${baseUrl}/admin/edit-card/${id}`, formData, {
         headers: {
           Authorization: `${login.token}`,
         },
       });
 
-      alert("Card Edited successfully!");
+    setMessage("Card Edited successfully!");
       fetchEditableData()
     } catch (error) {
       setMessage(error.response.data.message);
+    }
+    finally{
+      setLoading(false);
     }
   };
 
@@ -80,12 +84,18 @@ const EditCardForm = () => {
     fetchEditableData();
   }, []);
   function fetchEditableData(){
-    fetch(`${baseUrl}/public/cards/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setFormData({...data,__v:undefined,_id:undefined,userId:undefined});
-      })
-      .catch((error) => console.error("Error:", error));
+    try{
+
+      fetch(`${baseUrl}/public/cards/${id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setFormData({...data,__v:undefined,_id:undefined,userId:undefined});
+        })
+    }
+    catch(error) {
+        setMessage(error.message)
+      }
+     
   }
 
   const handleProChange = (index, value) => {
@@ -273,6 +283,7 @@ const EditCardForm = () => {
           </button>
         </div>
         <button
+        disabled={loading}
           type="submit"
           data-test="edit-submit"
           className="w-full  bg-slate-600 hover:bg-slate-900 text-white py-2 rounded"

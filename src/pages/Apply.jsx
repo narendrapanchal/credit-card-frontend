@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 
 const ApplicationForm = () => {
   const { id } = useParams();
+  const [loading,setLoading]=useState(false);
   const [formData, setFormData] = useState({
     name: "",
     income: "",
@@ -83,16 +84,16 @@ const ApplicationForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    
     if (!validate()) {
       return; // Message set in validation
     }
-
     try {
+      setLoading(true)
       const response = await axios.post(`${import.meta.env.VITE_Backend_Url}/user/apply`, {
         cardId: id,
         personalInfo: formData,
       });
-      setMessage("Application submitted successfully!");
       setFormData({
         name: "",
         income: "",
@@ -105,7 +106,10 @@ const ApplicationForm = () => {
       });
     } catch (error) {
       console.log(error);
-      setMessage("Failed to submit application. Please try again.");
+      setMessage(error.response.data.message);
+    }
+    finally{
+      setLoading(false);
     }
   };
 
@@ -214,14 +218,18 @@ const ApplicationForm = () => {
         </div>
         <button
           type="submit"
+          disabled={loading}
           data-test="applicant-submit"
           className="w-full bg-slate-600 hover:bg-slate-900 text-white py-2 rounded"
         >
           Submit
         </button>
-        {message && <p
-        data-test="application-message"
-        className="mt-4 text-center text-lg">{message}</p>}
+        {message && (
+          <p
+          data-test="application-message"
+           className="mt-4 text-center text-lg text-red-600">{message}</p>
+        )}
+       
       </form>
     </div>
   );

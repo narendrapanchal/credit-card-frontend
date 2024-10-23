@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import  { useContext, useState } from "react";
 import axios from "axios";
 import { UserContext } from "../context/userContext";
 const baseUrl = import.meta.env.VITE_Backend_Url;
@@ -14,6 +14,7 @@ const AddCardForm = () => {
   });
   const [message, setMessage] = useState("");
   const { login } = useContext(UserContext);
+  const [loading,setLoading]=useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,42 +27,39 @@ const AddCardForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
-
-    const { name, src, limit, pros, cons } = formData;
-    if (name.length < 3) {
-      setMessage("Name must be at least 3 characters long.");
-      return;
-    }
-
-    if (!isValidUrl(src)) {
-      setMessage("Please enter a valid image URL.");
-      return;
-    }
-
-    const creditLimit = Number(limit);
-    if (isNaN(creditLimit) || creditLimit < 10000) {
-      setMessage("Credit limit must be a number and at least 10,000.");
-      return;
-    }
-
-    if (pros.some((pro) => pro.length < 5)) {
-      setMessage("All pros must be at least 5 characters long.");
-      return;
-    }
-
-    if (cons.some((con) => con.length < 5)) {
-      setMessage("All cons must be at least 5 characters long.");
-      return;
-    }
-
+    setLoading(true);
     try {
+      const { name, src, limit, pros, cons } = formData;
+      if (name.length < 3) {
+        setMessage("Name must be at least 3 characters long.");
+        return;
+      }
+  
+      if (!isValidUrl(src)) {
+        setMessage("Please enter a valid image URL.");
+        return;
+      }
+  
+      const creditLimit = Number(limit);
+      if (isNaN(creditLimit) || creditLimit < 10000) {
+        setMessage("Credit limit must be a number and at least 10,000.");
+        return;
+      }
+  
+      if (pros.some((pro) => pro.length < 5)) {
+        setMessage("All pros must be at least 5 characters long.");
+        return;
+      }
+  
+      if (cons.some((con) => con.length < 5)) {
+        setMessage("All cons must be at least 5 characters long.");
+        return;
+      }
       await axios.post(`${baseUrl}/admin/add-card`, formData, {
         headers: {
           Authorization: `${login.token}`,
         },
       });
-
-      alert("Card added successfully!");
       setFormData({
         name: "",
         src: "",
@@ -71,8 +69,11 @@ const AddCardForm = () => {
         pros: [""],
         cons: [""],
       });
-    } catch (error) {
-      setMessage("Failed to add card. Please try again.");
+    } catch (err) {
+      setMessage(err.response.data.message);
+    }
+    finally{
+      setLoading(false);
     }
   };
 
@@ -262,6 +263,7 @@ const AddCardForm = () => {
           </button>
         </div>
         <button
+        disabled={loading}
           type="submit"
           className="w-full bg-slate-600 hover:bg-slate-900 text-white py-2 rounded"
         >

@@ -22,10 +22,9 @@ const Applications = () => {
             Authorization: `${login.token}`,
           },
         });
-        console.log(response.data);
         setApplications(response.data);
       } catch (err) {
-        setError("Failed to fetch applications.");
+        setError(err.response.data.message);
       } finally {
         setLoading(false);
       }

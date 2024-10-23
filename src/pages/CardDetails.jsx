@@ -5,16 +5,27 @@ import { UserContext } from "../context/userContext";
 const CardDetail = () => {
   const { id } = useParams();
   const [cardData, setCardData] = useState({});
+  const [loading,setLoading]=useState(true);
+  const [message,setMessage]=useState("");
   const navigate=useNavigate();
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_Backend_Url}/public/cards/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(JSON.stringify(data, null, 2));
-        setCardData(data);
-      })
-      .catch((error) => console.error("Error:", error));
+try{
+  fetch(`${import.meta.env.VITE_Backend_Url}/public/cards/${id}`)
+    .then((res) => res.json())
+    .then((data) => {
+      setCardData(data);
+    })
+    
+
+}catch(err){
+  setMessage(err.message)
+}
+finally{
+  setLoading(false);
+}
+      
   }, []);
+
   const { login } = useContext(UserContext)
   const handleDelete = async () => {
     try {
@@ -24,11 +35,13 @@ const CardDetail = () => {
           Authorization: `${login.token}`,
         },
       });
-      alert("Card deleted successfully!");
       navigate("/");
     } catch (error) {
-      alert(error.message);
+      setMessage(error.message);
     }
+  }
+  if(loading){
+    return <div>Loading...</div>
   }
   return (
     <div className="p-4 max-w-lg mx-auto">
@@ -89,13 +102,16 @@ const CardDetail = () => {
           </Link>
         }
         {login?.token && (
-    <button
-      onClick={handleDelete}
-      className="w-full text-center bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 rounded transition-all duration-300 hover:from-red-700 hover:to-red-600 transition"
-    >
-      Delete
-    </button>
-  )}
+              <button
+              onClick={handleDelete}
+              className="w-full text-center bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 rounded transition-all duration-300 hover:from-red-700 hover:to-red-600 transition"
+            >
+              Delete
+            </button>
+          )}
+           {message && (
+          <p className="mt-4 text-center text-lg text-red-600">{message}</p>
+        )}
       </div>
     </div>
   );
