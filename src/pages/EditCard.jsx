@@ -240,7 +240,7 @@ const EditCardForm = () => {
               <button
                 type="button"
                 onClick={() => handleRemovePro(index)}
-                className="bg-gradient-to-r from-red-600 to-red-700  transition-all duration-300 hover:from-red-700 hover:to-red-600 text-white text-3xl ml-2 py-0 px-2 rounded-full"
+                className="bg-gradient-to-r from-red-600 to-red-700  transition-all duration-300 hover:from-red-700 hover:to-red-600 text-white text-3xl ml-2 pb-1.5  px-3 rounded-full"
               >
                 &times;
               </button>
@@ -262,12 +262,12 @@ const EditCardForm = () => {
                 type="text"
                 value={con}
                 onChange={(e) => handleConChange(index, e.target.value)}
-                className="w-full bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)]  p-2 border border-gray-300 rounded"
+                className="w-full bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)]  p-2  border border-gray-300 rounded"
               />
               <button
                 type="button"
                 onClick={() => handleRemoveCon(index)}
-                className="bg-red-600 hover:bg-red-800 text-white text-3xl ml-2 py-0 px-2 rounded-full"
+                className="bg-red-600 hover:bg-red-800 text-white text-3xl ml-2 pb-1.5 px-3 rounded-full"
               >
                 &times;
               </button>

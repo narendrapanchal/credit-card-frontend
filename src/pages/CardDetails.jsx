@@ -5,28 +5,28 @@ import { UserContext } from "../context/userContext";
 const CardDetail = () => {
   const { id } = useParams();
   const [cardData, setCardData] = useState({});
-  const [loading,setLoading]=useState(true);
-  const [message,setMessage]=useState("");
-  const navigate=useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+  const { login } = useContext(UserContext);
+
   useEffect(() => {
-try{
-  fetch(`${import.meta.env.VITE_Backend_Url}/public/cards/${id}`)
-    .then((res) => res.json())
-    .then((data) => {
-      setCardData(data);
-    })
-    
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_Backend_Url}/public/cards/${id}`);
+        if (!response.ok) throw new Error("Failed to fetch card data.");
+        const data = await response.json();
+        setCardData(data);
+      } catch (err) {
+        setMessage(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-}catch(err){
-  setMessage(err.message)
-}
-finally{
-  setLoading(false);
-}
-      
-  }, []);
+    fetchData();
+  }, [id]);
 
-  const { login } = useContext(UserContext)
   const handleDelete = async () => {
     try {
       await fetch(`${import.meta.env.VITE_Backend_Url}/admin/delete-card/${id}`, {
@@ -39,32 +39,31 @@ finally{
     } catch (error) {
       setMessage(error.message);
     }
+  };
+
+  if (loading) {
+    return <div className="text-center">Loading...</div>;
   }
-  if(loading){
-    return <div>Loading...</div>
-  }
+
   return (
-    <div className="p-4 max-w-lg mx-auto">
+    <div className="p-6 max-w-lg mx-auto bg-white rounded-lg shadow-lg">
       <img
         src={cardData?.src}
         alt={cardData?.name}
-        className="w-full h-48 object-cover rounded"
+        className="w-full h-48 object-cover rounded-lg shadow-md"
       />
-      <h1 data-test="card-name" className="text-2xl font-bold mt-4">{cardData?.name}</h1>
-      <p  data-test="card-limit" className="text-gray-700">Limit: ${cardData?.limit}</p>
-      <p  data-test="card-category"className="text-gray-700">Category: {cardData?.category}</p>
+      <h1 data-test="card-name" className="text-3xl font-bold mt-4 text-gray-800">{cardData?.name}</h1>
+      <p data-test="card-limit" className="text-gray-700 mt-2">Limit: ${cardData?.limit}</p>
+      <p data-test="card-category" className="text-gray-700">Category: {cardData?.category}</p>
       <p data-test="card-bank" className="text-gray-700">Bank: {cardData?.bank}</p>
 
       {cardData?.pros?.length > 0 && (
         <>
           <h2 className="text-xl font-semibold mt-4">Pros:</h2>
           <ul className="list-disc list-inside">
-            {cardData?.pros &&
-              cardData?.pros.map((pro, index) => (
-                <li key={index} className="text-gray-700">
-                  {pro}
-                </li>
-              ))}
+            {cardData?.pros.map((pro, index) => (
+              <li key={index} className="text-gray-700">{pro}</li>
+            ))}
           </ul>
         </>
       )}
@@ -73,43 +72,40 @@ finally{
         <>
           <h2 className="text-xl font-semibold mt-4">Cons:</h2>
           <ul className="list-disc list-inside">
-            {cardData?.cons &&
-              cardData?.cons.map((con, index) => (
-                <li key={index} className="text-gray-700">
-                  {con}
-                </li>
-              ))}
+            {cardData?.cons.map((con, index) => (
+              <li key={index} className="text-gray-700">{con}</li>
+            ))}
           </ul>
         </>
       )}
 
-      <div className="mt-2 flex flex-col gap-2">
+      <div className="mt-4 flex flex-col gap-3">
         {login?.token && (
           <Link
             to={`/edit-card/${id}`}
-            className="min-w-36 text-center bg-gradient-to-r from-green-600 to-green-700 text-white px-4 py-2 rounded transition-all duration-300 hover:from-green-700 hover:to-green-600 transition"
+            className="min-w-36 text-center bg-gradient-to-r from-green-600 to-green-700 text-white px-4 py-2 rounded-lg transition-all duration-300 hover:from-green-700 hover:to-green-600 shadow transition"
           >
             Edit
           </Link>
         )}
-        {!login?.token &&
-
+        {!login?.token && (
           <Link
             to={`/apply/${cardData._id}`}
-            className="bg-gradient-to-r from-[rgb(30,41,59)] to-[rgb(75,85,99)]  transition-all duration-300 hover:from-[rgb(75,85,99)] hover:to-[rgb(30,41,59)] text-white px-4 py-2 rounded text-center"
-            data-test="apply-now">
+            className="min-w-36 text-center bg-gradient-to-r from-blue-600 to-blue-500 transition-all duration-300 hover:from-blue-500 hover:to-blue-400 text-white px-4 py-2 rounded-lg shadow"
+            data-test="apply-now"
+          >
             Apply Now
           </Link>
-        }
+        )}
         {login?.token && (
-              <button
-              onClick={handleDelete}
-              className="w-full text-center bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 rounded transition-all duration-300 hover:from-red-700 hover:to-red-600 transition"
-            >
-              Delete
-            </button>
-          )}
-           {message && (
+          <button
+            onClick={handleDelete}
+            className="w-full text-center bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 rounded-lg transition-all duration-300 hover:from-red-700 hover:to-red-600 shadow"
+          >
+            Delete
+          </button>
+        )}
+        {message && (
           <p className="mt-4 text-center text-lg text-red-600">{message}</p>
         )}
       </div>
