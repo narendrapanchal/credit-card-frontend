@@ -89,6 +89,7 @@ const ApplicationForm = () => {
       return; // Message set in validation
     }
     try {
+      setMessage("");
       setLoading(true)
       const response = await axios.post(`${import.meta.env.VITE_Backend_Url}/user/apply`, {
         cardId: id,
@@ -105,7 +106,6 @@ const ApplicationForm = () => {
         pincode: "",
       });
     } catch (error) {
-      console.log(error);
       setMessage(error.response.data.message);
     }
     finally{

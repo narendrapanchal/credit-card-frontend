@@ -64,7 +64,6 @@ const EditCardForm = () => {
         },
       });
 
-    setMessage("Card Edited successfully!");
       fetchEditableData()
     } catch (error) {
       setMessage(error.response.data.message);
