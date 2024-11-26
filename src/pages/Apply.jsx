@@ -17,9 +17,21 @@ const ApplicationForm = () => {
   });
   const [message, setMessage] = useState("");
 
-  const handleChange = (e) => {
+  const handleChange = async(e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    if(name=="pincode"&& value.toString().length==6){
+      let pincode = ""+value;
+
+// Define the URL with the pincode included
+let url = `http://www.postalpincode.in/api/pincode/${pincode}`;
+
+// Fetch the data from the API
+const data=await fetch(url)
+const res=await data.json();
+console.log(res);
+  
+    }
   };
 
   const validate = () => {
